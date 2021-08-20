@@ -14,5 +14,4 @@ def ancestor(args)
     end
 end
 
-
-puts ancestor(1)
+puts ancestor(a)
