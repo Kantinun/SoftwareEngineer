@@ -2,29 +2,29 @@ class Class
  
   def attr_accessor_with_history(*args)
       args.each do |arg|
-          attr_name = arg.to_s
+          attr_name = arg.to_s #converse symbol to string
           attr_hist_name = attr_name +'_history'
       
     #getter
-          self.class_eval("def #{attr_name};@#{attr_name};end")
+          self.class_eval("def #{attr_name};@#{attr_name};end") # method for get value of attribute
  
     #setter
-          self.class_eval %Q{
-          def #{attr_name}=(val)
+          self.class_eval %Q{ 
+          def #{attr_name}=(val)  #create method for set value of attribute
           # add to history
-              @#{attr_hist_name} = [] if @#{attr_hist_name}.nil?
-              @#{attr_hist_name} << val
+              @#{attr_hist_name} = [] if @#{attr_hist_name}.nil? #create list for collect history of attribute
+              @#{attr_hist_name} << val   #collect value in history list
  
         # set the value itself
-              @#{attr_name}=val
+              @#{attr_name}=val  #set value of attribute
           end
  
-          def #{attr_hist_name};@#{attr_hist_name};end
+          def #{attr_hist_name};@#{attr_hist_name};end  #create method that get history of value of attribute
  
                     }
           class_eval do
-              def history(name)
-                  instance_variable_get("@#{name}_history")
+              def history(name) #create method that when call history(nameofattribute) this method will call method that give history of value of attribute
+                  instance_variable_get("@#{name}_history") #call method that get history  of value
               end
           end
       end
