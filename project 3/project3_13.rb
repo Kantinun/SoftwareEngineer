@@ -1,17 +1,32 @@
 class Numeric
-    def dollars;  self; end
-    def yen; self*0.012; end
-    def euro; self*1.3; end
+    @@currency = {'yen' => 0.012, 'euro' => 1.3, 'dollar' => 1}
+    def dollar;  self*@@currency["dollar"]; end
+    def yen; self*@@currency["yen"]; end
+    def euro; self*@@currency["euro"]; end
     def in(currency)
-        if currency.to_s =="euros"
-            self*1.3
-        elsif currency.to_s =="yen"
-            self*0.012
-        elsif currency.to_s =="dollars"
-            self
+        if currency.match(/euros?/i)
+            self.euro
+        elsif currency.match(/yen/i)
+            self.yen
+        elsif currency.match(/dollars?/i)
+            self.dollar
         else
         end
     end
+    def method_missing(method_id, *args, &block)
+        singular_currency = method_id.to_s.gsub(/s$/, '')
+        if @@currency.has_key?(singular_currency)
+            if singular_currency.match(/yen/i)
+                self.yen
+            elsif singular_currency.match(/euros?/i)
+                self.euro
+            else
+                self.dollar
+            end
+        else
+            super
+        end
+    end
 end
-puts 5.dollars.in(:euros)
-puts (1.euro - 50.yen).in(:dollars)
+puts 5.dollar.in(:euro)
+puts (1.euro - 50.yen).in(:dollar)
