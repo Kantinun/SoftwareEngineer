@@ -18,26 +18,13 @@ class Fibonacci
             yield num
         }
     end
-    def reject
-        tmp = Array.new
-        for i in @num_li do
-            if yield i
-                tmp.push(i)
-            end
-        end
-        print @num_li-tmp
-    end
-    def map
-        tmp = Array.new
-        @num_li.each{|e| tmp.push(yield e)}
-        print tmp
-    end
+  
 end
 f = Fibonacci.new(6)
 f.each { |s| print(s,":") }
 puts ""
-f.reject{|s| s.odd?}
+print f.reject{|s| s.odd?}
 puts ""
-f.reject(&:odd?)
+print f.reject(&:odd?)
 puts ""
-f.map{|x| 2*x}
+print f.map{|x| 2*x}
