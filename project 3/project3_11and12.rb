@@ -60,9 +60,10 @@ end
 myTree = BinaryTree.new()
 myTree.insert(0)
 myTree.insert(7)
-# myTree.insert(7.5)
-# myTree.insert(15)
-puts myTree.all?
-# myTree.each{|x|
-#     print "#{x} , "
-# }
+myTree.insert(7.5)
+myTree.insert(15)
+puts myTree.all?{|x| x.class == Integer}
+puts myTree.any?{|x| x.class == Integer}
+myTree.each{|x|
+    print "#{x} , "
+}

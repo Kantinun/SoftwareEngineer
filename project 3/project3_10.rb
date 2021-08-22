@@ -6,6 +6,6 @@ module Enumerable
     end
 end
 
-[1,2,3,56,7,43,2].each_permuted { |person|
-    puts ">>  #{person} "
+[1,2,3,56,7,43,2].each_permuted { |num|
+    puts ">>  #{num} "
 }
